@@ -1,0 +1,1 @@
+﻿{"name":"Messages","id":20000,"commands":[{"theme":"Messages","syntax":"MESSAGE SERVICE LIST(&Y;&Y;&Y;&Y;&Y;&Y;&Y)"},{"theme":"Messages","syntax":"MESSAGE SERVICE BUDDY LIST(&T;&Y;&Y;&Y;&Y;&Y;&Y;&Y)"},{"theme":"Messages","syntax":"MESSAGE SERVICE LOGIN(&T)"},{"theme":"Messages","syntax":"MESSAGE SERVICE LOGOUT(&T)"},{"theme":"Messages","syntax":"MESSAGE SEND(&T;&T)"}]}
