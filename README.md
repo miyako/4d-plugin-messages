@@ -1,4 +1,4 @@
-# 4d-pluin-messages
+# 4d-plugin-messages
 Connect to the Messages (com.apple.iChat) app. 
 
 ##Platform
