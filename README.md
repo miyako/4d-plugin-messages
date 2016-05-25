@@ -10,7 +10,7 @@ Connect to the Messages (com.apple.iChat) app.
 ##Examples
 
 ```
-  //note: to prevent annoying the user by launch Messages,
+  //note: to prevent annoying the user by launching Messages,
   //the plugin will only run if the app is not running
 ARRAY TEXT($id;0)
 ARRAY TEXT($name;0)
