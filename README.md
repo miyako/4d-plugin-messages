@@ -100,7 +100,7 @@ End if
 
 First. you need to decide which service to use.
 
-On a typical Mac, you would see see Bonjour, SMS and E:keisuke.miyako@4d.com, for example.
+On a typical Mac, you would see see ``Bonjour``, ``SMS`` and ``E:keisuke.miyako@4d.com``, for example.
 
 Only the last 2 are probably enabled, or ``True``, with the connection status ``Messages Connected (1)``. (``MESSAGE SERVICE LIST``)
 
