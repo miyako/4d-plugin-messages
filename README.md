@@ -108,7 +108,7 @@ By running ``MESSAGE SERVICE BUDDY LIST`` with each type of service (SMS and E),
 
 ```
 "8A5D8B62-F1D5-45A1-BD68-6B6C5CB3A435:+818032404541"	//SMS
-"8862431A-EFF9-41B9-A954-B1D63730A6D4:+818032404541"		//E
+"8862431A-EFF9-41B9-A954-B1D63730A6D4:+818032404541"	//E
  ```
  
 anyway, now that you know the service+phone combination, you can send using either service.
