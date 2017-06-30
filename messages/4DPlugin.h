@@ -91,7 +91,7 @@ typedef enum MessagesServiceType MessagesServiceType;
 
 // --- Messages
 void MESSAGE_SERVICE_LIST(sLONG_PTR *pResult, PackagePtr pParams);
-void MESSAGE_SERVICE_BUDDY_LIST(sLONG_PTR *pResult, PackagePtr pParams);
+void MESSAGE_SERVICE_BUDDY_LIST(PA_PluginParameters params);
 void MESSAGE_SERVICE_LOGIN(sLONG_PTR *pResult, PackagePtr pParams);
 void MESSAGE_SERVICE_LOGOUT(sLONG_PTR *pResult, PackagePtr pParams);
 void MESSAGE_SEND(sLONG_PTR *pResult, PackagePtr pParams);

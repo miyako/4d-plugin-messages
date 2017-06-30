@@ -22,7 +22,17 @@ void PluginMain(PA_long32 selector, PA_PluginParameters params)
 		sLONG_PTR *pResult = (sLONG_PTR *)params->fResult;
 		PackagePtr pParams = (PackagePtr)params->fParameters;
 
-		CommandDispatcher(pProcNum, pResult, pParams); 
+		switch(pProcNum)
+		{
+			case 2 :
+				MESSAGE_SERVICE_BUDDY_LIST(params);
+				break;
+			
+			default:
+				CommandDispatcher(pProcNum, pResult, pParams);
+				break;
+		}
+
 	}
 	catch(...)
 	{
@@ -40,10 +50,6 @@ void CommandDispatcher (PA_long32 pProcNum, sLONG_PTR *pResult, PackagePtr pPara
 			MESSAGE_SERVICE_LIST(pResult, pParams);
 			break;
 
-		case 2 :
-			MESSAGE_SERVICE_BUDDY_LIST(pResult, pParams);
-			break;
-
 		case 3 :
 			MESSAGE_SERVICE_LOGIN(pResult, pParams);
 			break;
@@ -59,17 +65,9 @@ void CommandDispatcher (PA_long32 pProcNum, sLONG_PTR *pResult, PackagePtr pPara
 	}
 }
 
-// ----------------------------------- Messages -----------------------------------
+#pragma mark -
 
-void setArrayParameter(PA_Variable *param, PackagePtr pParams, unsigned int i)
-{
-	PA_Variable *p = ((PA_Variable *)pParams[i-1]);
-	p->fType = param->fType;
-	p->fFiller = param->fFiller;
-	p->uValue.fArray.fCurrent = param->uValue.fArray.fCurrent;
-	p->uValue.fArray.fNbElements = param->uValue.fArray.fNbElements;
-	p->uValue.fArray.fData = param->uValue.fArray.fData;
-}
+// ----------------------------------- Messages -----------------------------------
 
 void MESSAGE_SERVICE_LIST(sLONG_PTR *pResult, PackagePtr pParams)
 {
@@ -176,8 +174,10 @@ void MESSAGE_SERVICE_LIST(sLONG_PTR *pResult, PackagePtr pParams)
 	Param7.toParamAtIndex(pParams, 7);
 }
 
-void MESSAGE_SERVICE_BUDDY_LIST(sLONG_PTR *pResult, PackagePtr pParams)
+void MESSAGE_SERVICE_BUDDY_LIST(PA_PluginParameters params)
 {
+	PackagePtr pParams = (PackagePtr)params->fParameters;
+	
 	C_TEXT Param1;
 	ARRAY_TEXT Param2;
 	ARRAY_TEXT Param3;
@@ -187,21 +187,22 @@ void MESSAGE_SERVICE_BUDDY_LIST(sLONG_PTR *pResult, PackagePtr pParams)
 	ARRAY_LONGINT Param7;
 
 	//$8
-	PA_Variable Param8 = *((PA_Variable*) pParams[7]);
+	PA_Variable Param8 = PA_CreateVariable(eVK_ArrayPicture);
+//	PA_Variable Param8 = *((PA_Variable*) pParams[7]);
 	
-	switch (Param8.fType)
-	{
-		case eVK_ArrayPicture:
-			break;
-		case eVK_Undefined:
-			PA_ClearVariable(&Param8);
-			Param8 = PA_CreateVariable(eVK_ArrayPicture);
-			break;
-		default:
-			break;
-	}
+//	switch (Param8.fType)
+//	{
+//		case eVK_ArrayPicture:
+//			break;
+//		case eVK_Undefined:
+//			PA_ClearVariable(&Param8);
+//			Param8 = PA_CreateVariable(eVK_ArrayPicture);
+//			break;
+//		default:
+//			break;
+//	}
 	
-	PA_ResizeArray(&Param8, 0);
+//	PA_ResizeArray(&Param8, 0);
 	
 	Param1.fromParamAtIndex(pParams, 1);
 
@@ -265,23 +266,18 @@ void MESSAGE_SERVICE_BUDDY_LIST(sLONG_PTR *pResult, PackagePtr pParams)
 				
 				PA_ResizeArray(&Param8, i + 1);
 				
-				if([imageArray count] > i)
+				NSImage *image = [[buddies objectAtIndex:i]image];
+				if(image)//can be nil
 				{
-					NSImage *image = [imageArray objectAtIndex:i];
-					
-					if(image)
+					NSData *data = [image TIFFRepresentation];
+					if(data)
 					{
-						NSData *data = [image TIFFRepresentation];
-						if(data)
-						{
-							PA_Picture picture = PA_CreatePicture((void*)[data bytes], [data length]);
-							PA_SetPictureInArray(Param8, i + 1, picture);
-						}
-						
+						PA_Picture picture = PA_CreatePicture((void*)[data bytes], [data length]);
+						PA_SetPictureInArray(Param8, i + 1, picture);
 					}
 					
 				}
-				
+	
 			}
 		
 		}
@@ -295,7 +291,8 @@ void MESSAGE_SERVICE_BUDDY_LIST(sLONG_PTR *pResult, PackagePtr pParams)
 	Param5.toParamAtIndex(pParams, 5);
 	Param6.toParamAtIndex(pParams, 6);
 	Param7.toParamAtIndex(pParams, 7);
-	setArrayParameter(&Param8, pParams, 8);
+	
+	PA_SetVariableParameter(params, 8, Param8, 0);
 }
 
 void MESSAGE_SERVICE_LOGIN(sLONG_PTR *pResult, PackagePtr pParams)
@@ -343,6 +340,8 @@ void MESSAGE_SERVICE_LOGOUT(sLONG_PTR *pResult, PackagePtr pParams)
 	}
 
 }
+
+#pragma mark -
 
 void MESSAGE_SEND(sLONG_PTR *pResult, PackagePtr pParams)
 {
