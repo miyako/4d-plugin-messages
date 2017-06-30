@@ -5,7 +5,7 @@ Connect to the Messages (com.apple.iChat) app.
 
 | carbon | cocoa | win32 | win64 |
 |:------:|:-----:|:---------:|:---------:|
-|<img src="https://cloud.githubusercontent.com/assets/1725068/22371562/1b091f0a-e4db-11e6-8458-8653954a7cce.png" width="24" height="24" />|<img src="https://cloud.githubusercontent.com/assets/1725068/22371562/1b091f0a-e4db-11e6-8458-8653954a7cce.png" width="24" height="24" />|<img src="https://cloud.githubusercontent.com/assets/1725068/22371562/1b091f0a-e4db-11e6-8458-8653954a7cce.png" width="24" height="24" />|<img src="https://cloud.githubusercontent.com/assets/1725068/22371562/1b091f0a-e4db-11e6-8458-8653954a7cce.png" width="24" height="24" />|
+|<img src="https://cloud.githubusercontent.com/assets/1725068/22371562/1b091f0a-e4db-11e6-8458-8653954a7cce.png" width="24" height="24" />|<img src="https://cloud.githubusercontent.com/assets/1725068/22371562/1b091f0a-e4db-11e6-8458-8653954a7cce.png" width="24" height="24" />|||
 
 ### Version
 
@@ -16,6 +16,9 @@ Connect to the Messages (com.apple.iChat) app.
 ```
   //note: to prevent annoying the user by launching Messages,
   //the plugin will only run if the app is not running
+  
+OPEN URL("";"Messages")
+
 ARRAY TEXT($id;0)
 ARRAY TEXT($name;0)
 ARRAY BOOLEAN($enabled;0)
@@ -89,7 +92,7 @@ $handle;\
 $status;\
 $statusMessage;\
 $idleTime;\
-$image)
+$image)//always empty?
 
 $find:=Find in array($name;$2)
 
